@@ -4,6 +4,8 @@ import 'package:quiz_app/answer_button.dart';
 
 import 'package:quiz_app/data/questions.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class QuesionsScreen extends StatefulWidget {
   const QuesionsScreen({super.key});
   @override
@@ -13,24 +15,42 @@ class QuesionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreen extends State<QuesionsScreen> {
+  var currentQuestionsIndex = 0;
+
+  void answerQuestion() {
+    // currentQuestionsIndex = currentQuestionsIndex + 1;
+    // currentQuestionsIndex += 1;
+    setState(() {
+      currentQuestionsIndex++;
+    });
+  }
+
   @override
   Widget build(context) {
-    final currentQuestion = questions[0];
+    final currentQuestion = questions[currentQuestionsIndex];
 
     return SizedBox(
       width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            currentQuestion.text,
-            style: const TextStyle(color: Colors.white),
-          ),
-          const SizedBox(height: 30),
-          ...currentQuestion.answers.map((anwser) {
-            return AnswerButton(anwerText: anwser, onTap: () {});
-          })
-        ],
+      child: Container(
+        margin: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              currentQuestion.text,
+              style: GoogleFonts.lato(
+                  color: const Color.fromARGB(255, 180, 171, 230),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
+            ...currentQuestion.getSuffledAnswers().map((anwser) {
+              return AnswerButton(anwerText: anwser, onTap: answerQuestion);
+            })
+          ],
+        ),
       ),
     );
   }

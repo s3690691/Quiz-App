@@ -19,7 +19,10 @@ class AnswerButton extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       ),
-      child: Text(anwerText),
+      child: Text(
+        anwerText,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
